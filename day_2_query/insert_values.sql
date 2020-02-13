@@ -77,5 +77,3 @@ FROM LOANS
 SELECT*
 FROM BOOKS
 
-
---SELECT ΩË È÷§∫≈,
