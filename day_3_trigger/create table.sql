@@ -23,8 +23,11 @@ CREATE TABLE 部门表
 )
 GO
 
---IF NOT EXISTS (SELECT NAME FROM sysobjects WHERE NAME = 'tri_zc')
-CREATE TRIGGER tri_zc2 ON 教师表
+IF EXISTS (SELECT NAME FROM sysobjects WHERE NAME = 'tri_zc')
+DROP TRIGGER tri_zc
+GO
+
+CREATE TRIGGER tri_zc ON 教师表
 AFTER INSERT, UPDATE
 AS
 BEGIN
@@ -35,7 +38,7 @@ FROM inserted
 
 UPDATE 部门表
 SET 高级职称人数 = 高级职称人数 + 1
-WHERE @zc = '教授' OR  @zc = '副教授'
-	AND @dept= 部门号
+WHERE (@zc = '教授' OR  @zc =  '副教授')
+	AND  部门号 = @dept
 END
 GO
